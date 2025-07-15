@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Daftar menu makan dan minum
+echo "--- MENU WARUNG MASDAR ---"
+echo "1. Ayam Penyet	- Rp15000"
+echo "2. Sop Buntut	- Rp25000"
+echo "3. Mie Goreng	- Rp12000"
+echo "4. Air Mineral	- Rp3000"
+echo "5. Teh Manis	- Rp5000"
+
+# Meminta jumlah item yang ingin dibeli
+echo "Berapa jenis pesanan yang ingin dibeli?"
+read jumlah_pesanan
+
+total=0
+
+# Setiap item yang ingin dibeli
+for ((i=1; i<=jumlah_pesanan; i++)); do
+	echo "Pesanan ke-$i:"
+	echo "Pilih menu (1-5): "
+	read menu
+	echo "Jumlah pesan: "
+	read jumlah
+
+	# Menghitung total berdasaarkan pilihan menu
+	case $menu in
+		1) subtotal=$(( 15000 * jumlah)) ;;
+		2) subtotal=$(( 25000 * jumlah)) ;;
+		3) subtotal=$(( 12000 * jumlah)) ;;
+		4) subtotal=$(( 3000 * jumlah)) ;;
+		5) subtotal=$(( 5000 * jumlah)) ;;
+		*) echo "Pilihan menu tidak valid!"; exit 1 ;;
+	esac
+
+	total=$((total + subtotal))
+done
+
+# Menampilkan total belanja
+echo "Total belanja: Rp$total"
+
+# Hitung kembalian
+echo "Masukkan uang: "
+read uang
+if [ $uang -lt $total ]; then
+	echo "Uang tidak cukup!"
+else
+	kembali=$((uang - total))
+	echo "Kembali:Rp$kembali"
+fi
+echo "--- Terima kasih telah berbelanja ---"
+
+
